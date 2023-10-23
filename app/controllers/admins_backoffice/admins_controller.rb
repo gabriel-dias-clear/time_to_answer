@@ -3,6 +3,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   before_action :set_admin, only: [:edit, :update, :destroy]
 
   def index
+    @admins = Admin.all
     @admins = Admin.all .page params[:page]
   end
 
@@ -21,12 +22,12 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
 
   def destroy
     if @admin.destroy
-      redirect_to admins_backoffice_admins_path, notice:"Administrador excluído com sucesso!"
+      redirect_to admins_backoffice_admins_path, notice: "Administrador excluído com sucesso!"
     else
       render :index
     end
   end
-  
+
   def edit
   end
 
