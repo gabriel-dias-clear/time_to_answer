@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   namespace :users_backoffice do
     get 'welcome/index'
+    get 'profile', to: 'profile#edit'
+    patch 'profile', to: 'profile#update'
   end
   devise_for :users
   namespace :site do
     get 'welcome/index'
     get 'search', to: 'search#questions'
+    get 'search_subject/:subject_id/:subject', to: 'search#subject', as: 'search_subject'
     post 'answer', to: 'answer#question'
   end  
   namespace :admins_backoffice do
@@ -14,7 +17,7 @@ Rails.application.routes.draw do
     resources :subjects
     resources :questions
   end
-  devise_for :admins
+  devise_for :admins, :skip => [:registration]
   get 'welcome/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: 'site/welcome#index'
